@@ -4,7 +4,11 @@
   "description": "Message application like discord using React and GraphQL (Apollo)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"cd server && npm run dev\" \"cd client && npm start\"",
+    "i": "cd server && npm i && cd ../client && npm i",
+    "install": "cd server && npm i && cd ../client && npm i",
+    "start": "node server/server.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/AMillsy/Messenger-React/issues"
   },
-  "homepage": "https://github.com/AMillsy/Messenger-React#readme"
+  "homepage": "https://github.com/AMillsy/Messenger-React#readme",
+  "devDependencies": {
+    "concurrently": "^8.2.1"
+  }
 }
