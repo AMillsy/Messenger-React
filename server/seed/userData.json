@@ -2,37 +2,31 @@
   {
     "username": "Adam123",
     "email": "Adam123@fake.com",
-    "password": "password123",
-    "posts": []
+    "password": "password123"
   },
   {
     "username": "DevvyJones",
     "email": "DevvyJones@fake.com",
-    "password": "password111",
-    "posts": []
+    "password": "password111"
   },
   {
     "username": "Millsy",
     "email": "Millsy@fake.com",
-    "password": "wordword111",
-    "posts": []
+    "password": "wordword111"
   },
   {
     "username": "ZombieMan",
     "email": "Haseeb1@fake.com",
-    "password": "password123",
-    "posts": []
+    "password": "password123"
   },
   {
     "username": "SneakyCoder",
     "email": "jackjack@fake.com",
-    "password": "password123",
-    "posts": []
+    "password": "password123"
   },
   {
     "username": "GitBetter",
     "email": "gitbetter@fake.com",
-    "password": "password123",
-    "posts": []
+    "password": "password123"
   }
 ]

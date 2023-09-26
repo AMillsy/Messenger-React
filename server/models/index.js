@@ -1,4 +1,3 @@
 const User = require("./user");
-const Post = require("./post");
-const Comment = require("./comment");
-module.exports = { User, Post, Comment };
+const MessageGroups = require("./messageGroups");
+module.exports = { User, MessageGroups };

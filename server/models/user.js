@@ -23,19 +23,6 @@ const userSchema = new Schema(
       required: [true, "Password is required"],
       minlength: 8,
     },
-    image: {
-      type: String,
-    },
-    location: {
-      type: String,
-    },
-    job: {
-      type: String,
-    },
-    skills: [{ type: String }],
-    posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
-    followed: [{ type: Schema.Types.ObjectId, ref: "User" }],
-    following: [{ type: Schema.Types.ObjectId, ref: "User" }],
   },
   { toJSON: { virtuals: true } }
 );
