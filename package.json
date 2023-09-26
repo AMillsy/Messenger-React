@@ -1,0 +1,19 @@
+{
+  "name": "discord-clone",
+  "version": "1.0.0",
+  "description": "Message application like discord using React and GraphQL (Apollo)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AMillsy/Messenger-React.git"
+  },
+  "author": "Adam Mills",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AMillsy/Messenger-React/issues"
+  },
+  "homepage": "https://github.com/AMillsy/Messenger-React#readme"
+}
