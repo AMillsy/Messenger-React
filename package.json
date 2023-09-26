@@ -23,5 +23,6 @@
   "homepage": "https://github.com/AMillsy/Messenger-React#readme",
   "devDependencies": {
     "concurrently": "^8.2.1"
-  }
+  },
+  "dependencies": {}
 }
