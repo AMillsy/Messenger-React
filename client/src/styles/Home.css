@@ -4,6 +4,7 @@
   display: flex;
   align-items: center;
   padding: 10px;
+  box-shadow: rgba(0, 0, 0, 0.2) 10px 10px 4px;
 }
 
 .userInfo p {

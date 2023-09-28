@@ -19,7 +19,7 @@ class AvatarService {
     return color;
   }
   stringAvatar(name) {
-    return `${name.split(" ")[0][0]}${name.split(" ")[1][0]}`;
+    return name.slice(0, 3);
   }
 }
 

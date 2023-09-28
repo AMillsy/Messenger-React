@@ -4,4 +4,11 @@ import { gql } from "@apollo/client";
 /**
  * const {loading, error, data} = useQuery(QUERY_POST);
  */
-export const QUERY_USER = gql``;
+export const QUERY_USER = gql`
+  query Users {
+    users {
+      username
+      _id
+    }
+  }
+`;
