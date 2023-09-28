@@ -4,8 +4,36 @@ import Skeleton from "@mui/material/Skeleton";
 import Stack from "@mui/material/Stack";
 import AService from "../utils/Avatar";
 import { Avatar, TextField } from "@mui/material";
+import messageData from "./userMessage.json";
 
 const Home = () => {
+  const formatMessage = (message, user) => {
+    if (user._id === 1) {
+      return (
+        <div className="message you" style={{ marginLeft: "auto" }}>
+          <p>{message}</p>
+          <p className="userMessage">{user._id}</p>
+        </div>
+      );
+    }
+
+    return (
+      <div className="message they" style={{ marginRight: "auto" }}>
+        <p>{message}</p>
+        <p className="userMessage">{user._id}</p>
+      </div>
+    );
+  };
+
+  const displayMessages = () => {
+    const messageRows = [];
+    for (const { message, user } of messageData) {
+      const jsx = formatMessage(message, user);
+      messageRows.push(jsx);
+    }
+
+    return messageRows;
+  };
   return (
     <div className="main">
       {/* For variant="text", adjust the height via font-size */}
@@ -25,6 +53,12 @@ const Home = () => {
       </div>
 
       <div className="messenger">
+        <Stack
+          sx={{ width: "95%", alignSelf: "center", marginBottom: "10px" }}
+          spacing={1}
+        >
+          {displayMessages()}
+        </Stack>
         {/* For other variants, adjust the size with `width` and `height` */}
         <div className="textFieldCon">
           <TextField

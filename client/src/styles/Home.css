@@ -30,3 +30,25 @@
 #filled-text {
   color: white;
 }
+
+.message {
+  min-width: 30%;
+  max-width: 80%;
+  width: fit-content;
+  border-radius: 1rem;
+  padding: 10px;
+  overflow-wrap: break-word;
+}
+
+.you {
+  background-color: blue;
+}
+
+.they {
+  margin-right: auto;
+  background-color: red;
+}
+
+.userMessage {
+  color: grey;
+}
