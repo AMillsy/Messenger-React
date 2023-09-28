@@ -1,4 +1,32 @@
 .userInfo {
   background-color: #191919;
   height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.userInfo p {
+  padding: 10px;
+}
+
+.messenger {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 90%;
+}
+
+.textFieldCon {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.main {
+  width: 100%;
+  height: 100%;
+}
+
+#filled-text {
+  color: white;
 }
