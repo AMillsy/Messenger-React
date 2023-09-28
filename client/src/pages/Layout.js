@@ -1,6 +1,4 @@
 import { Link, Outlet } from "react-router-dom";
-import { styled } from "@mui/material/styles";
-import Badge from "@mui/material/Badge";
 import { Avatar } from "@mui/material";
 import AService from "../utils/Avatar";
 import { useQuery } from "@apollo/client";
@@ -40,6 +38,7 @@ const Layout = () => {
       <article className="home-main">
         <aside className="user-section">
           <div className="userIcon">
+            <Link to={"/login"}> login</Link>
             <Link>
               <Avatar
                 alt="User icon"

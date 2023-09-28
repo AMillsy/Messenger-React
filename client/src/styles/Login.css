@@ -1,0 +1,73 @@
+@import url("https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap");
+
+.log-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #ffffff;
+  padding: 20px;
+  background-image: linear-gradient(
+    120deg,
+    rgba(0, 0, 0, 0.215),
+    rgb(38, 38, 38),
+    rgba(0, 0, 0, 0.174)
+  );
+  width: 400px;
+  border-radius: 30px;
+  margin: auto;
+  font-family: "Courier New", Courier, monospace;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form input {
+  margin-bottom: 10px;
+  border-radius: 5px;
+  height: 25px;
+  padding-left: 5px;
+}
+
+.signup {
+  margin-top: 20px;
+  color: #ffffff;
+  text-align: center;
+  text-decoration: underline;
+}
+
+h2 {
+  padding: 20px;
+  color: #fff;
+  font-size: 20px;
+}
+
+.btn {
+  background-color: #717171;
+  padding: 3px;
+  border-radius: 10px;
+  width: 100px;
+  margin: auto;
+}
+
+.btn:hover {
+  box-shadow: 2px 2px 2px #161616;
+  background-color: #161616;
+  color: #fff;
+}
+.error-login {
+  display: none;
+}
+
+.error-active {
+  display: block;
+  margin: 5px;
+  color: red;
+}
+
+@media only screen and (max-width: 700px) {
+  .log-form {
+    width: 95%;
+  }
+}
