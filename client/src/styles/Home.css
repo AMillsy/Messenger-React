@@ -1,12 +1,4 @@
-.home-main {
-  display: grid;
-  grid-template-columns: 20% 80%;
-}
-
-.user-section {
-  grid-column-start: 1;
-}
-
-.mainMessageSection {
-  grid-column-start: 2;
+.userInfo {
+  background-color: #191919;
+  height: 60px;
 }

@@ -1,0 +1,32 @@
+.home-main {
+  display: grid;
+  grid-template-columns: 20% 80%;
+}
+body {
+  background-color: #121212;
+  color: white;
+}
+
+.user-section {
+  padding: 20px;
+  grid-column-start: 1;
+  background-color: #191919;
+  min-height: 100vh;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+.mainMessageSection {
+  grid-column-start: 2;
+  display: flex;
+}
+
+.userIcon {
+}
+
+.friendList {
+  padding-top: 10px;
+}
+
+.friend {
+  padding: 10px;
+}
