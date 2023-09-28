@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import "../styles/Home.css";
-import Skeleton from "@mui/material/Skeleton";
 import Stack from "@mui/material/Stack";
 import AService from "../utils/Avatar";
 import { Avatar, TextField } from "@mui/material";
@@ -29,14 +28,13 @@ const Home = () => {
     const messageRows = [];
     for (const { message, user } of messageData) {
       const jsx = formatMessage(message, user);
-      messageRows.push(jsx);
+      messageRows.unshift(jsx);
     }
 
     return messageRows;
   };
   return (
     <div className="main">
-      {/* For variant="text", adjust the height via font-size */}
       <div className="userInfo">
         <Avatar
           alt="User icon"
@@ -55,11 +53,11 @@ const Home = () => {
       <div className="messenger">
         <Stack
           sx={{ width: "95%", alignSelf: "center", marginBottom: "10px" }}
-          spacing={1}
+          spacing={2}
         >
           {displayMessages()}
         </Stack>
-        {/* For other variants, adjust the size with `width` and `height` */}
+
         <div className="textFieldCon">
           <TextField
             id="filled-text"
