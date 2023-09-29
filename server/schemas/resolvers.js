@@ -3,6 +3,7 @@ const { User, MessageGroups } = require("../models");
 const { ObjectId } = require("mongoose").Types;
 const GraphQLUpload = require("graphql-upload/GraphQLUpload.js");
 const { signToken } = require("../utils/auth");
+const { add } = require("../models/messages");
 
 require("dotenv").config();
 
@@ -15,16 +16,17 @@ const resolvers = {
     findMessages: async function (parent, { userId }, context) {
       if (!context.user) return new AuthenticationError("Need to be logged in");
 
-      const messages = await MessageGroups.find({
+      const messages = await MessageGroups.findOne({
         users: [userId, context.user._id],
-      });
+      })
+        .populate("users")
+        .sort({ "messages.dateCreated": 0 });
 
       return messages;
     },
   },
   Mutation: {
     loginUser: async function (parent, { username, password }, context) {
-      console.log(password, username);
       const user = await User.findOne({ username });
       if (!user) {
         throw new AuthenticationError("Incorrect Credentials");
@@ -57,7 +59,7 @@ const resolvers = {
       if (!context.user._id) throw new AuthenticationError("Not logged in");
       const findUser = await User.findById(context.user._id);
       //Checks if that user is in the database
-      console.log(findUser);
+
       if (!findUser)
         throw new AuthenticationError("No user found to create message");
       //Finds if there a message grounp linked to the id
@@ -65,14 +67,23 @@ const resolvers = {
       if (!findGroup) throw new AuthenticationError("Can't find message group");
 
       //Create the message
-      const addMessage = { message: message, user: context.user._id };
+      const addMessage = {
+        message: message,
+        user: context.user._id,
+        dateCreated: Date.now(),
+      };
 
+      console.log(addMessage);
       //Push the message into the messageGroup.
       const pushMessage = await MessageGroups.findByIdAndUpdate(groupId, {
-        $push: { messages: addMessage },
+        $push: { messages: { $each: [addMessage], $position: 0 } },
       });
 
-      return { message: addMessage.message, user: findUser };
+      return {
+        message: addMessage.message,
+        dateCreated: addMessage.dateCreated,
+        user: findUser,
+      };
     },
   },
 };

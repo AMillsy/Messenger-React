@@ -8,6 +8,10 @@ const messageSchema = new Schema({
   message: {
     type: String,
   },
+  dateCreated: {
+    type: Date,
+    default: Date.now(),
+  },
 });
 
 module.exports = messageSchema;

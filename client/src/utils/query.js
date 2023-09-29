@@ -12,3 +12,18 @@ export const QUERY_USER = gql`
     }
   }
 `;
+
+export const QUERY_MESSAGEGROUP = gql`
+  query Query($userId: ID) {
+    findMessages(userId: $userId) {
+      _id
+      messages {
+        message
+      }
+      users {
+        username
+        _id
+      }
+    }
+  }
+`;

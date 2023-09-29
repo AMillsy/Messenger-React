@@ -12,6 +12,7 @@ const typeDefs = gql`
   type Message {
     user: User
     message: String
+    dateCreated: Date
   }
   type MessageGroup {
     _id: ID
