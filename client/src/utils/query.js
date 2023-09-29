@@ -19,6 +19,11 @@ export const QUERY_MESSAGEGROUP = gql`
       _id
       messages {
         message
+        dateCreated
+        user {
+          _id
+          username
+        }
       }
       users {
         username

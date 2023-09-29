@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Layout from "./pages/Layout";
 import Login from "./pages/Login";
+import Chat from "./pages/Chat";
 
 const uploadLink = createUploadLink({ uri: "/graphql" });
 const authLink = setContext((_, { headers }) => {
@@ -33,6 +34,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
+            <Route path="/message/:userId" element={<Chat />} />
             <Route path="/login" element={<Login />} />
           </Route>
         </Routes>

@@ -20,6 +20,7 @@ const resolvers = {
         users: [userId, context.user._id],
       })
         .populate("users")
+        .populate("messages.user")
         .sort({ "messages.dateCreated": 0 });
 
       return messages;

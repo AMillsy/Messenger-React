@@ -2,20 +2,41 @@ import { Link } from "react-router-dom";
 import "../styles/Home.css";
 import Stack from "@mui/material/Stack";
 import AService from "../utils/Avatar";
-import { Avatar, TextField } from "@mui/material";
+import { Avatar, TextField, CircularProgress, Box } from "@mui/material";
 import messageData from "./userMessage.json";
 import { useParams } from "react-router-dom";
+import { useQuery } from "@apollo/client";
+import { QUERY_MESSAGEGROUP } from "../utils/query";
+import Auth from "../utils/auth";
+const Chat = () => {
+  const { userId } = useParams();
+  const { loading, data, error } = useQuery(QUERY_MESSAGEGROUP, {
+    variables: { userId },
+  });
 
-const Home = () => {
+  const ME_DATA = Auth.getProfile();
+
+  if (loading)
+    return (
+      <div className="loading-area">
+        <CircularProgress sx={{ width: "100%", height: "100%" }} />
+      </div>
+    );
+
+  const messages = data?.findMessages?.messages;
+  const users = data?.findMessages?.users;
+  console.log(users);
+  console.log(messages);
+
   const formatMessage = (message, user) => {
-    if (user._id === 1) {
+    if (user._id === ME_DATA.data._id) {
       return (
         <div
           className="message you"
           style={{ marginLeft: "auto", textAlign: "right" }}
         >
           <p>{message}</p>
-          <p className="userMessage">{user._id}</p>
+          <p className="userMessage">{user.username}</p>
         </div>
       );
     }
@@ -26,14 +47,14 @@ const Home = () => {
         style={{ marginRight: "auto", textAlign: "left" }}
       >
         <p>{message}</p>
-        <p className="userMessage">{user._id}</p>
+        <p className="userMessage">{user.username}</p>
       </div>
     );
   };
 
   const displayMessages = () => {
     const messageRows = [];
-    for (const { message, user } of messageData) {
+    for (const { message, user } of messages) {
       const jsx = formatMessage(message, user);
       messageRows.unshift(jsx);
     }
@@ -82,4 +103,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Chat;
