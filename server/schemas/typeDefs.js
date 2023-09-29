@@ -10,10 +10,11 @@ const typeDefs = gql`
     url: String!
   }
   type Message {
-    User: User
+    user: User
     message: String
   }
   type MessageGroup {
+    _id: ID
     users: [User]
     messages: [Message]
   }
@@ -33,6 +34,8 @@ const typeDefs = gql`
   }
   type Mutation {
     loginUser(username: String!, password: String!): Auth
+    createMessageGroup(userId: ID): MessageGroup
+    createMessage(message: String, groupId: ID): Message
   }
 `;
 

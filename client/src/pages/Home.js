@@ -9,7 +9,10 @@ const Home = () => {
   const formatMessage = (message, user) => {
     if (user._id === 1) {
       return (
-        <div className="message you" style={{ marginLeft: "auto" }}>
+        <div
+          className="message you"
+          style={{ marginLeft: "auto", textAlign: "right" }}
+        >
           <p>{message}</p>
           <p className="userMessage">{user._id}</p>
         </div>
@@ -17,7 +20,10 @@ const Home = () => {
     }
 
     return (
-      <div className="message they" style={{ marginRight: "auto" }}>
+      <div
+        className="message they"
+        style={{ marginRight: "auto", textAlign: "left" }}
+      >
         <p>{message}</p>
         <p className="userMessage">{user._id}</p>
       </div>

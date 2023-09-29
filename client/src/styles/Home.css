@@ -33,7 +33,7 @@
 }
 
 .message {
-  min-width: 30%;
+  min-width: 10%;
   max-width: 80%;
   width: fit-content;
   border-radius: 1rem;
