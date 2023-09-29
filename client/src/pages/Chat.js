@@ -53,6 +53,7 @@ const Chat = () => {
   };
 
   const displayMessages = () => {
+    if (!data.findMessages) return;
     const messageRows = [];
     for (const { message, user } of messages) {
       const jsx = formatMessage(message, user);
