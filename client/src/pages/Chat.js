@@ -86,6 +86,7 @@ const Chat = () => {
   };
 
   const sendMessage = async (e) => {
+    if (!message) return;
     if (!users) {
       try {
         const createMessageGroup = await createGroupMut({
@@ -98,6 +99,9 @@ const Chat = () => {
         console.log(error);
       }
     }
+
+    const { data } = createMessageMut({ variables: { groupId, message } });
+    setMessage("");
   };
   const changeData = (e) => {
     const { value } = e.target;
@@ -106,9 +110,15 @@ const Chat = () => {
   };
 
   const checkKey = (e) => {
-    if (e.keyCode != 13) return;
+    if (e.keyCode == 13 && e.shiftKey) {
+      console.log("pressed shift");
+    }
 
-    sendMessage(e);
+    if (e.keyCode == 13 && !e.shiftKey) {
+      console.log("just pressed enter");
+      e.preventDefault();
+      sendMessage(e);
+    }
   };
   return (
     <div className="main">
@@ -148,6 +158,7 @@ const Chat = () => {
             onSubmit={sendMessage}
             onChange={changeData}
             onKeyDown={checkKey}
+            value={message}
           />
         </div>
       </div>
