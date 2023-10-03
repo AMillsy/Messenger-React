@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "../styles/Home.css";
+import "../styles/Chat.css";
 import Stack from "@mui/material/Stack";
 import AService from "../utils/Avatar";
 import { Avatar, TextField, CircularProgress, Box } from "@mui/material";
@@ -170,10 +170,11 @@ const Chat = () => {
             alignSelf: "center",
             marginBottom: "10px",
             overflow: "auto",
-            height: "80vh",
+            height: "100%",
             flexDirection: "column-reverse",
           }}
           spacing={1}
+          className="messageStack"
         >
           {displayMessages()}
         </Stack>

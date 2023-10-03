@@ -94,11 +94,11 @@ const Layout = () => {
           <Box
             sx={{
               width: "100%",
-              position: "absolute",
               bottom: "0",
               left: "0",
               color: "white",
             }}
+            className="navBox"
           >
             <BottomNavigation
               value={value}

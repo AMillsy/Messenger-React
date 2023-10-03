@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "../styles/Home.css";
+import "../styles/Chat.css";
 import Stack from "@mui/material/Stack";
 import AService from "../utils/Avatar";
 import { Avatar, TextField } from "@mui/material";
