@@ -3,8 +3,8 @@ const { User, MessageGroups } = require("../models");
 const { ObjectId } = require("mongoose").Types;
 const GraphQLUpload = require("graphql-upload/GraphQLUpload.js");
 const { signToken } = require("../utils/auth");
-const { add } = require("../models/messages");
-
+const { PubSub, withFilter } = require("graphql-subscriptions");
+const pubsub = new PubSub();
 require("dotenv").config();
 
 const resolvers = {
@@ -91,12 +91,22 @@ const resolvers = {
       const pushMessage = await MessageGroups.findByIdAndUpdate(groupId, {
         $push: { messages: { $each: [addMessage], $position: 0 } },
       });
-
+      pubsub.publish("MessageService", { recieveMessage: addMessage });
       return {
         message: addMessage.message,
         dateCreated: addMessage.dateCreated,
         user: findUser,
       };
+    },
+  },
+  Subscription: {
+    recieveMessage: {
+      subscribe: withFilter(
+        () => pubsub.asyncIterator(["MessageService"]),
+        (payload, variables) => {
+          return true;
+        }
+      ),
     },
   },
 };

@@ -31,9 +31,6 @@ const Chat = () => {
       setGroupId(data?.findMessages?._id);
       setMessages(data?.findMessages?.messages);
       setUsers(data?.findMessages?.users);
-      console.log(groupId);
-      console.log(users);
-      console.log(messages);
     },
     [loading, userId]
   );
@@ -55,7 +52,7 @@ const Chat = () => {
       return (
         <div
           className="message you"
-          style={{ marginLeft: "auto", textAlign: "right" }}
+          style={{ marginLeft: "auto", textAlign: "right", marginTop: "20px" }}
         >
           <p>{message}</p>
           <p className="userMessage">{user.username}</p>
@@ -66,7 +63,7 @@ const Chat = () => {
     return (
       <div
         className="message they"
-        style={{ marginRight: "auto", textAlign: "left" }}
+        style={{ marginRight: "auto", textAlign: "left", marginTop: "20px" }}
       >
         <p>{message}</p>
         <p className="userMessage">{user.username}</p>
@@ -77,9 +74,10 @@ const Chat = () => {
   const displayMessages = () => {
     if (!messages) return;
     const messageRows = [];
+    console.log(messages);
     for (const { message, user } of messages) {
       const jsx = formatMessage(message, user);
-      messageRows.unshift(jsx);
+      messageRows.push(jsx);
     }
 
     return messageRows;
@@ -100,7 +98,13 @@ const Chat = () => {
       }
     }
 
-    const { data } = createMessageMut({ variables: { groupId, message } });
+    const { data } = await createMessageMut({
+      variables: { groupId, message },
+    });
+    const { message: newMessage, user } = data.createMessage;
+
+    setMessages([{ message: newMessage, user }, ...messages]);
+
     setMessage("");
   };
   const changeData = (e) => {
@@ -111,11 +115,9 @@ const Chat = () => {
 
   const checkKey = (e) => {
     if (e.keyCode == 13 && e.shiftKey) {
-      console.log("pressed shift");
     }
 
     if (e.keyCode == 13 && !e.shiftKey) {
-      console.log("just pressed enter");
       e.preventDefault();
       sendMessage(e);
     }
@@ -139,8 +141,15 @@ const Chat = () => {
 
       <div className="messenger">
         <Stack
-          sx={{ width: "95%", alignSelf: "center", marginBottom: "10px" }}
-          spacing={2}
+          sx={{
+            width: "95%",
+            alignSelf: "center",
+            marginBottom: "10px",
+            overflow: "auto",
+            height: "80vh",
+            flexDirection: "column-reverse",
+          }}
+          spacing={1}
         >
           {displayMessages()}
         </Stack>

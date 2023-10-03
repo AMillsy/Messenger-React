@@ -35,6 +35,7 @@ export const CREATE_MESSAGE = gql`
     createMessage(message: $message, groupId: $groupId) {
       message
       user {
+        _id
         username
       }
     }

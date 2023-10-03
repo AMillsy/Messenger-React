@@ -16,6 +16,8 @@
   flex-direction: column;
   justify-content: flex-end;
   min-height: 90%;
+  overflow: auto;
+  position: relative;
 }
 
 .textFieldCon {

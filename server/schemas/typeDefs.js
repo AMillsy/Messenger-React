@@ -38,6 +38,9 @@ const typeDefs = gql`
     createMessageGroup(userId: ID): MessageGroup
     createMessage(message: String, groupId: ID): Message
   }
+  type Subscription {
+    recieveMessage: Message
+  }
 `;
 
 /**type Query{
