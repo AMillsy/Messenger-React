@@ -3,10 +3,9 @@ import "../styles/Home.css";
 import Stack from "@mui/material/Stack";
 import AService from "../utils/Avatar";
 import { Avatar, TextField, CircularProgress, Box } from "@mui/material";
-import messageData from "./userMessage.json";
 import { useParams } from "react-router-dom";
 import { useMutation, useQuery } from "@apollo/client";
-import { QUERY_MESSAGEGROUP } from "../utils/query";
+import { QUERY_MESSAGEGROUP, QUERY_USER } from "../utils/query";
 import { CREATE_MESSAGEGROUP, CREATE_MESSAGE } from "../utils/mutations";
 import Auth from "../utils/auth";
 import { useEffect, useState } from "react";
@@ -18,7 +17,7 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [users, setUsers] = useState([]);
   const { userId } = useParams();
-  const { loading: userLoading, data: userData } = useQuery();
+  const { loading: userLoading, data: userData } = useQuery(QUERY_USER);
   const { loading, data, error, refetch } = useQuery(QUERY_MESSAGEGROUP, {
     variables: { userId },
   });

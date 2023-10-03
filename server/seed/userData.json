@@ -28,5 +28,15 @@
     "username": "GitBetter",
     "email": "gitbetter@fake.com",
     "password": "password123"
+  },
+  {
+    "username": "WolfMan1502",
+    "email": "wolfingout@fake.com",
+    "password": "password111"
+  },
+  {
+    "username": "MasonForceWoody",
+    "email": "hard@fake.com",
+    "password": "password111"
   }
 ]

@@ -14,6 +14,11 @@ const resolvers = {
     users: async function (parent, args, context) {
       return User.find({});
     },
+    me: async function (parent, args, context) {
+      if (!context.user) throw new AuthenticationError("");
+
+      return User.findById(context.user._id);
+    },
     findMessages: async function (parent, { userId }, context) {
       if (!context.user) return new AuthenticationError("Need to be logged in");
 

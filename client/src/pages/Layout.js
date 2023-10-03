@@ -4,10 +4,18 @@ import AService from "../utils/Avatar";
 import { useQuery } from "@apollo/client";
 import "../styles/Layout.css";
 import { QUERY_USER } from "../utils/query";
+import Auth from "../utils/auth";
 const Layout = () => {
   const { data, loading, error } = useQuery(QUERY_USER);
 
   const users = data?.users;
+  // const isLoggedIn = () => {
+  //   const isLogged = Auth.loggedIn();
+
+  //   if (isLogged) {
+  //   }
+  // };
+
   const showUsers = () => {
     if (loading) {
       return <></>;
