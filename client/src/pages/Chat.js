@@ -18,6 +18,7 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [users, setUsers] = useState([]);
   const { userId } = useParams();
+  const { loading: userLoading, data: userData } = useQuery();
   const { loading, data, error, refetch } = useQuery(QUERY_MESSAGEGROUP, {
     variables: { userId },
   });
@@ -25,11 +26,7 @@ const Chat = () => {
     variables: { groupId },
     shouldResubscribe: true,
     onData: function ({ data }) {
-      console.log(data.data);
-      console.log("subscription");
-      console.log(data, data.variables, data.data.recieveMessage);
       if (data?.data?.recieveMessage) {
-        console.log(data?.data?.recieveMessage);
         const newMessage = data?.data?.recieveMessage;
         setMessages([
           { message: newMessage.message, user: newMessage.user },

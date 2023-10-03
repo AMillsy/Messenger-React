@@ -108,7 +108,6 @@ const resolvers = {
       subscribe: withFilter(
         () => pubsub.asyncIterator(["MessageService"]),
         (payload, { groupId }) => {
-          console.log("hitting here");
           return payload.recieveMessage.groupId == groupId;
         }
       ),
