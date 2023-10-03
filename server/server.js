@@ -23,6 +23,7 @@ const wsServer = new WebSocketServer({
   server: httpServer,
   path: "/graphql",
 });
+
 const serverCleanup = useServer({ schema }, wsServer);
 const server = new ApolloServer({
   schema,

@@ -23,6 +23,20 @@ const Chat = () => {
   });
   const { data: subMessages } = useSubscription(SUBSCRIBE_MESSAGE, {
     variables: { groupId },
+    shouldResubscribe: true,
+    onData: function ({ data }) {
+      console.log(data.data);
+      console.log("subscription");
+      console.log(data, data.variables, data.data.recieveMessage);
+      if (data?.data?.recieveMessage) {
+        console.log(data?.data?.recieveMessage);
+        const newMessage = data?.data?.recieveMessage;
+        setMessages([
+          { message: newMessage.message, user: newMessage.user },
+          ...messages,
+        ]);
+      }
+    },
   });
   const [
     createGroupMut,
@@ -30,14 +44,12 @@ const Chat = () => {
   ] = useMutation(CREATE_MESSAGEGROUP);
   const [createMessageMut] = useMutation(CREATE_MESSAGE);
 
-  console.log(subMessages);
   useEffect(
     function () {
       refetch();
       setGroupId(data?.findMessages?._id);
       setMessages(data?.findMessages?.messages);
       setUsers(data?.findMessages?.users);
-      console.log(users, messages, groupId);
     },
     [loading, userId]
   );
@@ -81,7 +93,7 @@ const Chat = () => {
   const displayMessages = () => {
     if (!messages) return;
     const messageRows = [];
-    console.log(messages);
+
     for (const { message, user } of messages) {
       const jsx = formatMessage(message, user);
       messageRows.push(jsx);
@@ -94,28 +106,24 @@ const Chat = () => {
     if (!message) return;
     if (!users) {
       try {
-        console.log(userId);
         const { data } = await createGroupMut({
           variables: { userId },
         });
-        console.log(data);
+
         setUsers(data?.createMessageGroup?.users);
         setMessages(data?.createMessageGroup?.messages);
         setGroupId(data?.createMessageGroup?._id);
         await appendMessage(data.createMessageGroup._id, true);
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
     } else {
       appendMessage(groupId, false);
     }
   };
   const appendMessage = async (groupId, newGroup) => {
-    console.log(groupId, message);
     const { data } = await createMessageMut({
       variables: { groupId, message },
     });
-    console.log(data);
+
     const { message: newMessage, user } = data.createMessage;
 
     if (newGroup) {

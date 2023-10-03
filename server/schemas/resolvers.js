@@ -3,10 +3,11 @@ const { User, MessageGroups } = require("../models");
 const { ObjectId } = require("mongoose").Types;
 const GraphQLUpload = require("graphql-upload/GraphQLUpload.js");
 const { signToken } = require("../utils/auth");
-const { PubSub, withFilter } = require("graphql-subscriptions");
-const pubsub = new PubSub();
+const { withFilter, PubSub } = require("graphql-subscriptions");
+
 require("dotenv").config();
 
+const pubsub = new PubSub();
 const resolvers = {
   Upload: GraphQLUpload,
   Query: {
@@ -107,6 +108,7 @@ const resolvers = {
       subscribe: withFilter(
         () => pubsub.asyncIterator(["MessageService"]),
         (payload, { groupId }) => {
+          console.log("hitting here");
           return payload.recieveMessage.groupId == groupId;
         }
       ),

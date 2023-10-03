@@ -1,7 +1,13 @@
 import "./App.css";
 import "./reset.css";
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
-import { createUploadLink } from "apollo-upload-client";
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  split,
+  HttpLink,
+} from "@apollo/client";
+import { getMainDefinition } from "@apollo/client/utilities";
 import { setContext } from "@apollo/client/link/context";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { GraphQLWsLink } from "@apollo/client/link/subscriptions";
@@ -16,7 +22,19 @@ const wsLink = new GraphQLWsLink(
     url: "ws://localhost:3001/graphql",
   })
 );
-const uploadLink = createUploadLink({ uri: "/graphql" });
+const httpLink = new HttpLink({ uri: "/graphql" });
+
+const splitLink = split(
+  ({ query }) => {
+    const definition = getMainDefinition(query);
+    return (
+      definition.kind === "OperationDefinition" &&
+      definition.operation === "subscription"
+    );
+  },
+  wsLink,
+  httpLink
+);
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem("id_token");
 
@@ -29,7 +47,7 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const client = new ApolloClient({
-  link: authLink.concat(uploadLink),
+  link: authLink.concat(splitLink),
   cache: new InMemoryCache(),
 });
 
