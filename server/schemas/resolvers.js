@@ -86,25 +86,28 @@ const resolvers = {
         dateCreated: Date.now(),
       };
 
-      console.log(addMessage);
-      //Push the message into the messageGroup.
-      const pushMessage = await MessageGroups.findByIdAndUpdate(groupId, {
-        $push: { messages: { $each: [addMessage], $position: 0 } },
-      });
-      pubsub.publish("MessageService", { recieveMessage: addMessage });
-      return {
+      const fullMessage = {
         message: addMessage.message,
         dateCreated: addMessage.dateCreated,
         user: findUser,
       };
+
+      //Push the message into the messageGroup.
+      const pushMessage = await MessageGroups.findByIdAndUpdate(groupId, {
+        $push: { messages: { $each: [addMessage], $position: 0 } },
+      });
+      pubsub.publish("MessageService", {
+        recieveMessage: { ...fullMessage, groupId: groupId },
+      });
+      return fullMessage;
     },
   },
   Subscription: {
     recieveMessage: {
       subscribe: withFilter(
         () => pubsub.asyncIterator(["MessageService"]),
-        (payload, variables) => {
-          return true;
+        (payload, { groupId }) => {
+          return payload.recieveMessage.groupId == groupId;
         }
       ),
     },

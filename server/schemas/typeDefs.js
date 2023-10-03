@@ -39,7 +39,7 @@ const typeDefs = gql`
     createMessage(message: String, groupId: ID): Message
   }
   type Subscription {
-    recieveMessage: Message
+    recieveMessage(groupId: ID): Message
   }
 `;
 
