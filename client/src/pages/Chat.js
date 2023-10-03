@@ -5,14 +5,38 @@ import AService from "../utils/Avatar";
 import { Avatar, TextField, CircularProgress, Box } from "@mui/material";
 import messageData from "./userMessage.json";
 import { useParams } from "react-router-dom";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { QUERY_MESSAGEGROUP } from "../utils/query";
+import { CREATE_MESSAGEGROUP, CREATE_MESSAGE } from "../utils/mutations";
 import Auth from "../utils/auth";
+import { useEffect, useState } from "react";
 const Chat = () => {
+  const [message, setMessage] = useState("");
+  const [groupId, setGroupId] = useState("");
+  const [messages, setMessages] = useState([]);
+  const [users, setUsers] = useState([]);
   const { userId } = useParams();
-  const { loading, data, error } = useQuery(QUERY_MESSAGEGROUP, {
+  const { loading, data, error, refetch } = useQuery(QUERY_MESSAGEGROUP, {
     variables: { userId },
   });
+  const [
+    createGroupMut,
+    { data: createData, loading: createLoading, error: createError },
+  ] = useMutation(CREATE_MESSAGEGROUP);
+  const [createMessageMut] = useMutation(CREATE_MESSAGE);
+
+  useEffect(
+    function () {
+      refetch();
+      setGroupId(data?.findMessages?._id);
+      setMessages(data?.findMessages?.messages);
+      setUsers(data?.findMessages?.users);
+      console.log(groupId);
+      console.log(users);
+      console.log(messages);
+    },
+    [loading, userId]
+  );
 
   const ME_DATA = Auth.getProfile();
 
@@ -23,10 +47,8 @@ const Chat = () => {
       </div>
     );
 
-  const messages = data?.findMessages?.messages;
-  const users = data?.findMessages?.users;
-  console.log(users);
-  console.log(messages);
+  //const messages = data?.findMessages?.messages;
+  // const users = data?.findMessages?.users;
 
   const formatMessage = (message, user) => {
     if (user._id === ME_DATA.data._id) {
@@ -53,7 +75,7 @@ const Chat = () => {
   };
 
   const displayMessages = () => {
-    if (!data.findMessages) return;
+    if (!messages) return;
     const messageRows = [];
     for (const { message, user } of messages) {
       const jsx = formatMessage(message, user);
@@ -61,6 +83,32 @@ const Chat = () => {
     }
 
     return messageRows;
+  };
+
+  const sendMessage = async (e) => {
+    if (!users) {
+      try {
+        const createMessageGroup = await createGroupMut({
+          variables: { userId },
+        });
+        setUsers(createData?.createMessageGroup?.users);
+        setMessages(createData?.createMessageGroup?.messages);
+        setGroupId(createData?.createMessageGroup?._id);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+  const changeData = (e) => {
+    const { value } = e.target;
+
+    setMessage(value);
+  };
+
+  const checkKey = (e) => {
+    if (e.keyCode != 13) return;
+
+    sendMessage(e);
   };
   return (
     <div className="main">
@@ -97,6 +145,9 @@ const Chat = () => {
             color="secondary"
             autoComplete="on"
             multiline
+            onSubmit={sendMessage}
+            onChange={changeData}
+            onKeyDown={checkKey}
           />
         </div>
       </div>

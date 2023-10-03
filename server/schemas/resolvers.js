@@ -49,9 +49,21 @@ const resolvers = {
       const findUser = await User.findById(userId);
       if (!findUser) throw new AuthenticationError("Can't find user");
 
+      const findGroup = await MessageGroups.findOne({
+        users: [userId, context.user._id],
+      })
+        .populate("users")
+        .populate("messages.user");
+
+      console.log(findGroup);
+
+      if (findGroup) return findGroup;
+
       const newGroup = await MessageGroups.create({
         users: [userId, context.user._id],
-      });
+      })
+        .populate("users")
+        .populate("messages.user");
 
       return newGroup;
     },
