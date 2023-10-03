@@ -32,7 +32,7 @@ const typeDefs = gql`
   type Query {
     users: [User]
     findMessages(userId: ID): MessageGroup
-    me: Auth
+    me: User
   }
   type Mutation {
     loginUser(username: String!, password: String!): Auth

@@ -32,3 +32,12 @@ export const QUERY_MESSAGEGROUP = gql`
     }
   }
 `;
+
+export const QUERY_ME = gql`
+  query Me {
+    me {
+      username
+      _id
+    }
+  }
+`;
