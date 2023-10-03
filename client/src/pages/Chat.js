@@ -21,15 +21,16 @@ const Chat = () => {
   const { loading, data, error, refetch } = useQuery(QUERY_MESSAGEGROUP, {
     variables: { userId },
   });
-  const { data: subMessages } = useSubscription(SUBSCRIBE_MESSAGE);
+  const { data: subMessages } = useSubscription(SUBSCRIBE_MESSAGE, {
+    variables: { groupId },
+  });
   const [
     createGroupMut,
     { data: createData, loading: createLoading, error: createError },
   ] = useMutation(CREATE_MESSAGEGROUP);
   const [createMessageMut] = useMutation(CREATE_MESSAGE);
 
-  console.log(data);
-
+  console.log(subMessages);
   useEffect(
     function () {
       refetch();

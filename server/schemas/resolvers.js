@@ -17,7 +17,7 @@ const resolvers = {
       if (!context.user) return new AuthenticationError("Need to be logged in");
 
       const messages = await MessageGroups.findOne({
-        users: [userId, context.user._id],
+        users: { $all: [userId, context.user._id] },
       })
         .populate("users")
         .populate("messages.user")
