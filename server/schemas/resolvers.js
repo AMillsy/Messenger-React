@@ -55,17 +55,17 @@ const resolvers = {
         .populate("users")
         .populate("messages.user");
 
-      console.log(findGroup);
-
       if (findGroup) return findGroup;
 
       const newGroup = await MessageGroups.create({
         users: [userId, context.user._id],
-      })
-        .populate("users")
-        .populate("messages.user");
+      });
 
-      return newGroup;
+      const newGroupFind = await MessageGroups.findById(newGroup._id).populate(
+        "users"
+      );
+      console.log(newGroupFind);
+      return newGroupFind;
     },
     createMessage: async function (parent, { message, groupId }, context) {
       //Checks if there is a user_id in the middleware

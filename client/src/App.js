@@ -13,7 +13,7 @@ import Chat from "./pages/Chat";
 
 const wsLink = new GraphQLWsLink(
   createClient({
-    url: "ws://localhost:4000/subscriptions",
+    url: "ws://localhost:3001/graphql",
   })
 );
 const uploadLink = createUploadLink({ uri: "/graphql" });

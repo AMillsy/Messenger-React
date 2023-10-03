@@ -10,6 +10,8 @@ import { QUERY_MESSAGEGROUP } from "../utils/query";
 import { CREATE_MESSAGEGROUP, CREATE_MESSAGE } from "../utils/mutations";
 import Auth from "../utils/auth";
 import { useEffect, useState } from "react";
+import { useSubscription } from "@apollo/client";
+import { SUBSCRIBE_MESSAGE } from "../utils/subscription";
 const Chat = () => {
   const [message, setMessage] = useState("");
   const [groupId, setGroupId] = useState("");
@@ -19,11 +21,14 @@ const Chat = () => {
   const { loading, data, error, refetch } = useQuery(QUERY_MESSAGEGROUP, {
     variables: { userId },
   });
+  const { data: subMessages } = useSubscription(SUBSCRIBE_MESSAGE);
   const [
     createGroupMut,
     { data: createData, loading: createLoading, error: createError },
   ] = useMutation(CREATE_MESSAGEGROUP);
   const [createMessageMut] = useMutation(CREATE_MESSAGE);
+
+  console.log(data);
 
   useEffect(
     function () {
@@ -31,6 +36,7 @@ const Chat = () => {
       setGroupId(data?.findMessages?._id);
       setMessages(data?.findMessages?.messages);
       setUsers(data?.findMessages?.users);
+      console.log(users, messages, groupId);
     },
     [loading, userId]
   );
@@ -87,23 +93,35 @@ const Chat = () => {
     if (!message) return;
     if (!users) {
       try {
-        const createMessageGroup = await createGroupMut({
+        console.log(userId);
+        const { data } = await createGroupMut({
           variables: { userId },
         });
-        setUsers(createData?.createMessageGroup?.users);
-        setMessages(createData?.createMessageGroup?.messages);
-        setGroupId(createData?.createMessageGroup?._id);
+        console.log(data);
+        setUsers(data?.createMessageGroup?.users);
+        setMessages(data?.createMessageGroup?.messages);
+        setGroupId(data?.createMessageGroup?._id);
+        await appendMessage(data.createMessageGroup._id, true);
       } catch (error) {
         console.log(error);
       }
+    } else {
+      appendMessage(groupId, false);
     }
-
+  };
+  const appendMessage = async (groupId, newGroup) => {
+    console.log(groupId, message);
     const { data } = await createMessageMut({
       variables: { groupId, message },
     });
+    console.log(data);
     const { message: newMessage, user } = data.createMessage;
 
-    setMessages([{ message: newMessage, user }, ...messages]);
+    if (newGroup) {
+      setMessages([{ message: newMessage, user }]);
+    } else {
+      setMessages([{ message: newMessage, user }, ...messages]);
+    }
 
     setMessage("");
   };
@@ -122,6 +140,7 @@ const Chat = () => {
       sendMessage(e);
     }
   };
+
   return (
     <div className="main">
       <div className="userInfo">

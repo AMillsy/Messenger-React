@@ -1,11 +1,11 @@
 const db = require("../config/connection");
-const { User } = require("../models");
+const { User, MessageGroups } = require("../models");
 const userData = require("./userData.json");
 
 const seed = async () => {
   db.once("open", async () => {
     await User.deleteMany({});
-
+    await MessageGroups.deleteMany({});
     const createdUsers = [];
     for (const user of userData) {
       const newUser = await User.create(user);
