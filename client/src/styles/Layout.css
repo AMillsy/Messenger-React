@@ -43,7 +43,9 @@ body {
 
 .navBox {
   z-index: 1000;
-  position: absolute;
+  position: fixed;
+  width: 500px;
+  bottom: 0;
 }
 
 @media only screen and (max-width: 1100px) {

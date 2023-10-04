@@ -51,6 +51,20 @@ const resolvers = {
 
       return { token, user };
     },
+    signupUser: async function (
+      parent,
+      { username, password, email },
+      context
+    ) {
+      if (!username || !password || !email)
+        throw new AuthenticationError("Not all fields have been completed");
+
+      const user = await User.create({ username, password, email });
+
+      const token = signToken(user);
+
+      return { token, user };
+    },
     createMessageGroup: async function (parent, { userId }, context) {
       if (!context.user) throw new AuthenticationError("Need to be logged in");
 

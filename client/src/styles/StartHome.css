@@ -72,6 +72,9 @@
 .startShowcase {
   width: 100%;
 }
+.svgIcon {
+  transform: scale(10);
+}
 
 @media only screen and (max-width: 1100px) {
   .startMain {

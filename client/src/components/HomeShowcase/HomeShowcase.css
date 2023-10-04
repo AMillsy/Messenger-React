@@ -7,7 +7,6 @@
 .left {
   height: 100%;
   width: 50%;
-  background-color: blue;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -19,11 +18,10 @@
 .right {
   height: 100%;
   width: 50%;
-  background-color: red;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
-  font-size: 150%;
+  font-size: 300%;
 }
 
 .right p {

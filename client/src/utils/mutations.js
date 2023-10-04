@@ -41,3 +41,15 @@ export const CREATE_MESSAGE = gql`
     }
   }
 `;
+
+export const SIGNUP_USER = gql`
+  mutation SignupUser($username: String!, $password: String!, $email: String!) {
+    signupUser(username: $username, password: $password, email: $email) {
+      token
+      user {
+        username
+        _id
+      }
+    }
+  }
+`;

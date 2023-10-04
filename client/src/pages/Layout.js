@@ -73,6 +73,7 @@ const Layout = () => {
           <div className="friendList">
             <ul>{showUsers()}</ul>
           </div>
+
           <Box
             sx={{
               width: "100%",
