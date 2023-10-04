@@ -11,6 +11,7 @@ import PeopleIcon from "@mui/icons-material/People";
 import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
 import * as React from "react";
+import UserIcon from "../components/UserIcon";
 
 const Layout = () => {
   const [value, setValue] = useState(0);
@@ -31,22 +32,7 @@ const Layout = () => {
           <Link className="logout" onClick={logout}>
             Logout
           </Link>
-          <div className="userProfile">
-            <Link>
-              <Avatar
-                alt="User icon"
-                sx={{
-                  width: 80,
-                  height: 80,
-                  bgcolor: AService.stringToColor(`${ME_DATA.me.username}`),
-                }}
-                className="userIcon"
-              >
-                {AService.stringAvatar(ME_DATA.me.username)}
-              </Avatar>
-            </Link>
-            <h3 className="meUsername">{ME_DATA.me.username}</h3>
-          </div>
+          <UserIcon username={ME_DATA.me.username} id={ME_DATA.me._id} />
         </>
       );
     } else {

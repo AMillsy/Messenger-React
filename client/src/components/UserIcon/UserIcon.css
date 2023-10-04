@@ -1,0 +1,12 @@
+.userProfile {
+  display: flex;
+  align-items: center;
+}
+
+.meUsername {
+  margin: 10px;
+  font-size: 150%;
+}
+.userIcon {
+  position: relative;
+}
