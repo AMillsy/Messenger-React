@@ -24,6 +24,8 @@ const StartHome = () => {
       </div>
       <div className="startShowcase">
         <HomeShowcase />
+        <HomeShowcase />
+        <HomeShowcase />
       </div>
     </div>
   );

@@ -1,16 +1,43 @@
 .showcaseContainer {
   height: 300px;
   width: 100%;
+  display: flex;
 }
 
 .left {
   height: 100%;
   width: 50%;
   background-color: blue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+.left img {
+  height: 250px;
+}
 .right {
   height: 100%;
   width: 50%;
   background-color: red;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 150%;
+}
+
+.right p {
+  padding: 10px;
+}
+
+@media only screen and (max-width: 800px) {
+  .showcaseContainer {
+    flex-direction: column;
+  }
+  .left {
+    width: 100%;
+  }
+  .right {
+    width: 100%;
+  }
 }
