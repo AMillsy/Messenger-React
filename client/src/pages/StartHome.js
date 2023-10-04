@@ -1,6 +1,7 @@
 //This is the page that will be presented if the user is not logged in.
 import { Link } from "react-router-dom";
 import "../styles/StartHome.css";
+import HomeShowcase from "../components/HomeShowcase";
 
 const StartHome = () => {
   return (
@@ -13,13 +14,16 @@ const StartHome = () => {
       <div className="signInSection">
         <h3>Create your own Journey</h3>
         <div className="startLinks">
-          <Link className="linkBtn" to={"/login"}>
-            Login
+          <Link className="linkBtn startLogin" to={"/login"}>
+            Login to an Account
           </Link>
-          <Link className="linkBtn" to={"/signup"}>
-            Signup
+          <Link className="linkBtn startSignup" to={"/signup"}>
+            Create a new Account
           </Link>
         </div>
+      </div>
+      <div className="startShowcase">
+        <HomeShowcase />
       </div>
     </div>
   );

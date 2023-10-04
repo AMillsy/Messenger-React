@@ -23,7 +23,6 @@ body {
 
 .mainMessageSection {
   grid-column-start: 2;
-  height: 100vh;
 }
 
 .friendList {

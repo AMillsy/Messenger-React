@@ -31,27 +31,38 @@
   display: flex;
   justify-content: space-around;
   width: 100%;
-  height: 300px;
+  height: 200px;
   align-items: center;
   flex-direction: column;
 }
 
+.signInSection h3 {
+  font-size: 180%;
+}
 .startLinks {
   display: flex;
   width: 100%;
-  justify-content: space-around;
+  justify-content: center;
 }
 .linkBtn {
   text-align: center;
   font-size: 130%;
   color: white;
   background-color: rgb(58, 1, 58);
-  width: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px;
-  border-radius: 1rem;
+  padding: 15px;
+  border-radius: 1.5rem;
+  margin: 10px;
+}
+
+.startLogin {
+  background-color: #eee;
+  color: black;
+}
+.startSignup {
+  background-color: #222;
 }
 
 .linkBtn:hover {

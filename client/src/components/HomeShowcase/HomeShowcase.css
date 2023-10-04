@@ -1,0 +1,16 @@
+.showcaseContainer {
+  height: 300px;
+  width: 100%;
+}
+
+.left {
+  height: 100%;
+  width: 50%;
+  background-color: blue;
+}
+
+.right {
+  height: 100%;
+  width: 50%;
+  background-color: red;
+}
