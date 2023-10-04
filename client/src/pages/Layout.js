@@ -14,12 +14,8 @@ import * as React from "react";
 
 const Layout = () => {
   const [value, setValue] = useState(0);
-  const { data, loading, error } = useQuery(QUERY_USER);
-  const {
-    data: ME_DATA,
-    loading: ME_LOAD,
-    error: ME_ERROR,
-  } = useQuery(QUERY_ME);
+  const { data, loading } = useQuery(QUERY_USER);
+  const { data: ME_DATA } = useQuery(QUERY_ME);
   const users = data?.users;
 
   const logout = () => {
@@ -54,7 +50,7 @@ const Layout = () => {
         </>
       );
     } else {
-      return <Link to={"/login"}> login</Link>;
+      return <Link to={"/login"}>login</Link>;
     }
   };
 

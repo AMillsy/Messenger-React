@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import "../styles/Chat.css";
 import Stack from "@mui/material/Stack";
 import AService from "../utils/Avatar";
@@ -18,10 +17,10 @@ const Chat = () => {
   const [users, setUsers] = useState([]);
   const { userId } = useParams();
   const { loading: userLoading, data: userData } = useQuery(QUERY_USER);
-  const { loading, data, error, refetch } = useQuery(QUERY_MESSAGEGROUP, {
+  const { loading, data, refetch } = useQuery(QUERY_MESSAGEGROUP, {
     variables: { userId },
   });
-  const { data: subMessages } = useSubscription(SUBSCRIBE_MESSAGE, {
+  useSubscription(SUBSCRIBE_MESSAGE, {
     variables: { groupId },
     shouldResubscribe: true,
     onData: function ({ data }) {
@@ -34,10 +33,7 @@ const Chat = () => {
       }
     },
   });
-  const [
-    createGroupMut,
-    { data: createData, loading: createLoading, error: createError },
-  ] = useMutation(CREATE_MESSAGEGROUP);
+  const [createGroupMut] = useMutation(CREATE_MESSAGEGROUP);
   const [createMessageMut] = useMutation(CREATE_MESSAGE);
 
   useEffect(

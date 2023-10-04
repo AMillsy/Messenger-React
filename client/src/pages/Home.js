@@ -1,10 +1,8 @@
-import { Link } from "react-router-dom";
 import "../styles/Chat.css";
 import Stack from "@mui/material/Stack";
 import AService from "../utils/Avatar";
 import { Avatar, TextField } from "@mui/material";
 import messageData from "./userMessage.json";
-import { useParams } from "react-router-dom";
 
 const Home = () => {
   const formatMessage = (message, user) => {
