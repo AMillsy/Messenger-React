@@ -150,13 +150,13 @@ const Chat = () => {
           sx={{
             width: 45,
             height: 45,
-            bgcolor: AService.stringToColor("Jake"),
+            bgcolor: AService.stringToColor("DevvyJones"),
           }}
           className="userIcon"
         >
-          {AService.stringAvatar("Jake Bummer")}
+          {AService.stringAvatar("DevvyJones")}
         </Avatar>
-        <p>Jake Bummer</p>
+        <p>DevvyJones</p>
       </div>
 
       <div className="messenger">

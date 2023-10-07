@@ -8,6 +8,8 @@
 .startMain h2 {
   font-size: 300%;
   font-weight: bolder;
+  color: black;
+  font-family: "Libre Baskerville", serif;
 }
 
 .startMain h3 {
@@ -16,28 +18,42 @@
 }
 
 .startTop {
-  background: rgb(2, 0, 36);
-  background: linear-gradient(
-    90deg,
-    rgba(2, 0, 36, 1) 0%,
-    rgba(9, 9, 121, 1) 35%,
-    rgba(0, 212, 255, 1) 100%
-  );
-  width: 100%;
+  background-image: url("https://dailytrojan.com/wp-content/uploads/2021/09/dr-blingspice--scaled.jpg");
+  background-size: 120% 160%;
+  color: black;
+  width: 90%;
   height: 300px;
+  border-radius: 0.5rem 0.5rem 2rem 2rem;
+  margin-top: 10px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 
 .signInSection {
   display: flex;
   justify-content: space-around;
-  width: 100%;
+  width: 90%;
   height: 200px;
   align-items: center;
   flex-direction: column;
+  background: rgb(0, 36, 1);
+  background: linear-gradient(
+    -45deg,
+    rgba(0, 36, 1, 1) 0%,
+    rgba(27, 120, 10, 1) 35%,
+    rgba(0, 255, 205, 1) 100%
+  );
+  margin-top: 20px;
+  border-radius: 2rem;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 
 .signInSection h3 {
   font-size: 180%;
+  font-family: "Libre Baskerville", serif;
 }
 .startLinks {
   display: flex;

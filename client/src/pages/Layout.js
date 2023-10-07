@@ -36,7 +36,7 @@ const Layout = () => {
         </>
       );
     } else {
-      return <Link to={"/login"}>login</Link>;
+      return;
     }
   };
 

@@ -5,6 +5,7 @@ import { Box, CircularProgress } from "@mui/material";
 import Loading from "../components/Loading";
 import Auth from "../utils/auth";
 import StartHome from "./StartHome";
+import PersonalHome from "./PersonalHome";
 const Home = () => {
   const { loading, data, error } = useQuery(QUERY_ME);
 
@@ -15,6 +16,8 @@ const Home = () => {
   if (!loggedIn) {
     return <StartHome />;
   }
+
+  return <PersonalHome />;
 };
 
 export default Home;

@@ -26,6 +26,7 @@
 
 .right p {
   padding: 10px;
+  font-family: "Libre Baskerville", serif;
 }
 
 @media only screen and (max-width: 800px) {
