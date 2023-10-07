@@ -3,12 +3,7 @@ const { gql } = require("apollo-server-express");
 const typeDefs = gql`
   scalar Date
   scalar Upload
-  type UploadFileResponse {
-    filename: String!
-    mimetype: String!
-    encoding: String!
-    url: String!
-  }
+
   type Message {
     user: User
     message: String
@@ -29,6 +24,19 @@ const typeDefs = gql`
     email: String
     password: String
   }
+
+  type Echo {
+    user: User
+    people: [User]
+    messages: [Message]
+  }
+
+  type EchoGroup {
+    name: String!
+    groups: [Echo]
+    groupCount: Int
+  }
+
   type Query {
     users: [User]
     findMessages(userId: ID): MessageGroup
