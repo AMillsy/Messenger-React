@@ -1,8 +1,9 @@
 import "./Card.css";
+import { Link, Outlet } from "react-router-dom";
 
 const Card = () => {
   return (
-    <div className="homeCard">
+    <Link className="homeCard">
       <h3 className="cardTitle">Counter Strike 2</h3>
       <img
         className="cardImage"
@@ -10,9 +11,11 @@ const Card = () => {
       ></img>
       <div className="infoCard">
         <p>Echos Open: 0</p>
-        <p className="cardClick">Click for more info</p>
+        <p className="cardClick" style={{ margin: "10px" }}>
+          Click for more info
+        </p>
       </div>
-    </div>
+    </Link>
   );
 };
 

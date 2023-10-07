@@ -11,6 +11,7 @@ const PersonalHome = () => {
   const me = ME_DATA?.me;
   return (
     <>
+      <h2>Echos</h2>
       <InfiniteCarousel />
     </>
   );
