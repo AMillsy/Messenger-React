@@ -1,7 +1,6 @@
 import "./UserCard.css";
 import AService from "../../utils/Avatar";
 const UserCard = ({ username, addFriend, id }) => {
-  console.log(id);
   return (
     <div
       className="userCard"

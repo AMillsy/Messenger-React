@@ -20,7 +20,7 @@ const Layout = () => {
   const location = useLocation();
 
   const { data: ME_DATA, loading, refetch } = useQuery(QUERY_ME);
-  console.log(ME_DATA);
+
   const navigate = useNavigate();
 
   useEffect(
@@ -58,9 +58,7 @@ const Layout = () => {
   const isLoggedIn = () => {
     const isLogged = Auth.loggedIn();
 
-    console.log(isLogged && ME_DATA);
     if (isLogged && ME_DATA) {
-      console.log(ME_DATA);
       return (
         <>
           <Link className="logout" onClick={logout}>

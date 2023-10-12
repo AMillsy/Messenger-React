@@ -60,7 +60,6 @@ const Signup = () => {
         return <li key={value}>{value}</li>;
       })
     );
-    console.log(errorList);
   };
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -71,7 +70,7 @@ const Signup = () => {
       const { data } = await signup({
         variables: { ...formState },
       });
-      console.log(data);
+
       Auth.login(data.signupUser.token);
     } catch (error) {
       displayErrorMessage(error.message);

@@ -8,22 +8,29 @@ import "../styles/Friends.css";
 import { useState } from "react";
 import UserCard from "../components/UserCard";
 const Friends = () => {
-  const [value, setValue] = useState();
-  const { data, loading, refetch } = useQuery(QUERY_USER);
+  const [value, setValue] = useState("");
+  //Sets up to say no users have been found
+  const [jsx, setJsx] = useState();
+  const { data, loading, refetch } = useQuery(QUERY_USER, {
+    skip: !value,
+  });
+
   const [addFriendMut, { data: friendData }] = useMutation(ADD_FRIEND);
   if (loading) return <Loading />;
 
-  const showResults = (e) => {
+  const showResults = async (e) => {
     if (e.key === "Enter") {
-      console.log("Submitting form");
-      refetch({ username: value });
+      const { data: newData } = await refetch({ username: value });
+
+      if (newData.users.length === 0) {
+        return setJsx(<h3>No users found</h3>);
+      }
+      return setJsx(<></>);
     }
   };
 
-  console.log(data);
   const handleChange = (e) => {
     setValue(e.target.value);
-    console.log(value);
   };
 
   const addFriend = async (id) => {
@@ -64,7 +71,8 @@ const Friends = () => {
       <h3 className="friendH3">Finds some people to add!</h3>
 
       <div className="friendList">
-        {data.users.length > 0 &&
+        {data &&
+          data.users.length > 0 &&
           data.users.map(function ({ _id, username }) {
             return (
               <UserCard
@@ -75,6 +83,7 @@ const Friends = () => {
               />
             );
           })}
+        {jsx}
       </div>
     </>
   );
