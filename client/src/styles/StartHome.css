@@ -40,9 +40,9 @@
   background: rgb(0, 36, 1);
   background: linear-gradient(
     -45deg,
-    rgba(0, 36, 1, 1) 0%,
-    rgba(27, 120, 10, 1) 35%,
-    rgba(0, 255, 205, 1) 100%
+    rgb(7, 7, 7) 0%,
+    rgb(24, 24, 24) 35%,
+    rgb(34, 34, 34) 100%
   );
   margin-top: 20px;
   border-radius: 2rem;

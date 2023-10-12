@@ -23,6 +23,12 @@ const userSchema = new Schema(
       required: [true, "Password is required"],
       minlength: 8,
     },
+    friends: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
   },
   { toJSON: { virtuals: true } }
 );

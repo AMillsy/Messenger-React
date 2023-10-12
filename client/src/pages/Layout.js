@@ -12,13 +12,17 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
 import * as React from "react";
 import UserIcon from "../components/UserIcon";
-
+import { useNavigate } from "react-router-dom";
 const Layout = () => {
   const [value, setValue] = useState(0);
-  const { data, loading } = useQuery(QUERY_USER);
-  const { data: ME_DATA } = useQuery(QUERY_ME);
-  const users = data?.users;
 
+  const { data: ME_DATA, loading } = useQuery(QUERY_ME);
+  const navigate = useNavigate();
+  const users = ME_DATA?.me?.friends;
+
+  const handleClick = (loc) => {
+    navigate(loc);
+  };
   const logout = () => {
     Auth.logout();
   };
@@ -44,25 +48,28 @@ const Layout = () => {
     if (loading) {
       return <></>;
     }
-    return users.map(({ username, _id }) => {
-      return (
-        <li className="friend" key={_id}>
-          <Link to={`/message/${_id}`}>
-            <Avatar
-              alt="User icon"
-              sx={{
-                width: 60,
-                height: 60,
-                bgcolor: AService.stringToColor(username),
-              }}
-              className="userIcon"
-            >
-              {AService.stringAvatar(username)}
-            </Avatar>
-          </Link>
-        </li>
-      );
-    });
+    return (
+      users &&
+      users.map(({ username, _id }) => {
+        return (
+          <li className="friend" key={_id}>
+            <Link to={`/message/${_id}`}>
+              <Avatar
+                alt="User icon"
+                sx={{
+                  width: 60,
+                  height: 60,
+                  bgcolor: AService.stringToColor(username),
+                }}
+                className="userIcon"
+              >
+                {AService.stringAvatar(username)}
+              </Avatar>
+            </Link>
+          </li>
+        );
+      })
+    );
   };
 
   return (
@@ -94,16 +101,26 @@ const Layout = () => {
                 label="Home"
                 icon={<HomeIcon />}
                 sx={{ color: "white" }}
+                onClick={() => handleClick("")}
               />
               <BottomNavigationAction
                 label="Friends"
                 icon={<PeopleIcon />}
-                sx={{ color: "white" }}
+                sx={{
+                  color: "white",
+                  "& .Mui-selected, .Mui-selected svg": {
+                    color: "#007A78",
+                  },
+                }}
+                onClick={() => handleClick("friends")}
               />
               <BottomNavigationAction
-                label="Search"
+                label="Echos"
                 icon={<SearchIcon />}
                 sx={{ color: "white" }}
+                onClick={() => {
+                  handleClick("echo");
+                }}
               />
             </BottomNavigation>
           </Box>

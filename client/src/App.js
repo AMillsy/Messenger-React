@@ -17,6 +17,8 @@ import Layout from "./pages/Layout";
 import Login from "./pages/Login";
 import Chat from "./pages/Chat";
 import Signup from "./pages/Signup";
+import Friends from "./pages/Friends";
+import Echos from "./pages/Echos";
 
 const wsLink = new GraphQLWsLink(
   createClient({
@@ -62,6 +64,8 @@ function App() {
             <Route path="/message/:userId" element={<Chat />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/friends" element={<Friends />} />
+            <Route path="/echo" element={<Echos />} />
           </Route>
         </Routes>
       </BrowserRouter>
