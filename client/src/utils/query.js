@@ -5,10 +5,10 @@ import { gql } from "@apollo/client";
  * const {loading, error, data} = useQuery(QUERY_POST);
  */
 export const QUERY_USER = gql`
-  query Users {
-    users {
-      username
+  query Users($username: String) {
+    users(username: $username) {
       _id
+      username
     }
   }
 `;
@@ -38,6 +38,10 @@ export const QUERY_ME = gql`
     me {
       username
       _id
+      friends {
+        _id
+        username
+      }
     }
   }
 `;

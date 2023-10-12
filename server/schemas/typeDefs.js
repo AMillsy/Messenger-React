@@ -23,6 +23,7 @@ const typeDefs = gql`
     username: String
     email: String
     password: String
+    friends: [User]
   }
 
   type Echo {
@@ -38,7 +39,7 @@ const typeDefs = gql`
   }
 
   type Query {
-    users: [User]
+    users(username: String): [User]
     findMessages(userId: ID): MessageGroup
     me: User
   }
@@ -47,6 +48,7 @@ const typeDefs = gql`
     createMessageGroup(userId: ID): MessageGroup
     createMessage(message: String, groupId: ID): Message
     signupUser(username: String!, password: String!, email: String!): Auth
+    addFriend(id: ID): User
   }
   type Subscription {
     recieveMessage(groupId: ID): Message

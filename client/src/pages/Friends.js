@@ -1,7 +1,31 @@
 import { TextField, InputAdornment } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import { useQuery } from "@apollo/client";
+import { QUERY_USER } from "../utils/query";
+import Loading from "../components/Loading";
 import "../styles/Friends.css";
+import { useState } from "react";
+import { useResolvedPath } from "react-router-dom";
+import UserCard from "../components/UserCard";
 const Friends = () => {
+  const [value, setValue] = useState();
+  const { data, loading, refetch } = useQuery(QUERY_USER);
+
+  if (loading) return <Loading />;
+
+  const showResults = (e) => {
+    if (e.key === "Enter") {
+      console.log("Submitting form");
+      refetch({ username: value });
+    }
+  };
+
+  console.log(data);
+  const handleChange = (e) => {
+    setValue(e.target.value);
+    console.log(value);
+  };
+
   return (
     <>
       <TextField
@@ -13,8 +37,7 @@ const Friends = () => {
           margin: "10px",
           borderRadius: "0.5rem",
           color: "white",
-          "&:hover": { borderBottomColor: "orange" },
-          "&:after": { borderBottomColor: "orange" },
+          input: { color: "white" },
         }}
         InputProps={{
           startAdornment: (
@@ -26,7 +49,19 @@ const Friends = () => {
         InputLabelProps={{
           style: { color: "white" },
         }}
+        value={value}
+        onChange={handleChange}
+        onKeyDown={showResults}
       />
+
+      <h3 className="friendH3">Finds some people to add!</h3>
+
+      <div className="friendList">
+        {data.users.length > 0 &&
+          data.users.map(function (user) {
+            return <UserCard username={user.username} />;
+          })}
+      </div>
     </>
   );
 };

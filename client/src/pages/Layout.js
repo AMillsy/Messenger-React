@@ -18,11 +18,14 @@ const Layout = () => {
 
   const location = useLocation();
 
-  useEffect(function () {
-    console.log(location);
-    handlePageChange();
-    console.log(value);
-  }, []);
+  useEffect(
+    function () {
+      console.log(location);
+      handlePageChange();
+      console.log(value);
+    },
+    [location]
+  );
 
   const handlePageChange = () => {
     const friendRe = /^\/friends\/?[a-zA-Z0-9]*$/i;
@@ -34,9 +37,12 @@ const Layout = () => {
     } else if (echoRe.test(location.pathname)) {
       setValue(2);
       return;
+    } else if (location.pathname === "/") {
+      setValue(0);
+      return;
     }
 
-    setValue(0);
+    setValue(-1);
   };
   const { data: ME_DATA, loading } = useQuery(QUERY_ME);
   const navigate = useNavigate();
@@ -51,6 +57,7 @@ const Layout = () => {
   const isLoggedIn = () => {
     const isLogged = Auth.loggedIn();
 
+    console.log(isLogged && ME_DATA);
     if (isLogged && ME_DATA) {
       console.log(ME_DATA);
       return (

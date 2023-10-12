@@ -11,12 +11,14 @@ const pubsub = new PubSub();
 const resolvers = {
   Upload: GraphQLUpload,
   Query: {
-    users: async function (parent, args, context) {
-      return User.find({});
+    users: async function (parent, { username }, context) {
+      return User.find({
+        username: { $regex: new RegExp("^" + username + "$", "i") },
+      });
     },
     me: async function (parent, args, context) {
       if (context.user) {
-        return User.findById(context.user._id);
+        return User.findById(context.user._id).populate("friends");
       }
 
       throw new AuthenticationError("You need to logged in");
@@ -122,6 +124,20 @@ const resolvers = {
         recieveMessage: { ...fullMessage, groupId: groupId },
       });
       return fullMessage;
+    },
+    addFriend: async function (parent, { id }, context) {
+      if (!context.user)
+        throw new AuthenticationError("Need to logged in to add a friend");
+
+      if (context.user._id === id)
+        throw new AuthenticationError("Cannot add self");
+      const user = await User.findOneAndUpdate(
+        { _id: context.user._id },
+        { $addToSet: { friends: new ObjectId(id) } },
+        { new: true }
+      ).populate("friends");
+
+      return user;
     },
   },
   Subscription: {

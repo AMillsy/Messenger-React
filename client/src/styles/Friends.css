@@ -1,0 +1,11 @@
+.friendH3 {
+  text-align: center;
+  width: 100%;
+  font-size: 150%;
+}
+
+.friendList {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

@@ -1,0 +1,43 @@
+.userCard {
+  display: flex;
+  width: 30%;
+  background-color: blue;
+  height: 300px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.userTitle {
+  font-size: 1000%;
+}
+
+.userSections {
+  width: 100%;
+  height: 30%;
+  background-color: #1a1a1ad8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.userSections h3 {
+  font-size: 130%;
+  margin: 10px;
+  text-align: center;
+}
+
+.userSections button {
+  width: 25%;
+  font-weight: bolder;
+  border: 0;
+  border-radius: 0.25rem;
+  padding: 5px;
+  transition: all 0.1s ease-in-out;
+}
+
+.userSections button:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}
