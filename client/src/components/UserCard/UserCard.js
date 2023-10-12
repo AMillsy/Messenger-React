@@ -1,6 +1,7 @@
 import "./UserCard.css";
 import AService from "../../utils/Avatar";
-const UserCard = ({ username }) => {
+const UserCard = ({ username, addFriend, id }) => {
+  console.log(id);
   return (
     <div
       className="userCard"
@@ -9,7 +10,7 @@ const UserCard = ({ username }) => {
       <h2 className="userTitle">{username[0]}</h2>
       <div className="userSections">
         <h3>{username}</h3>
-        <button>Add</button>
+        <button onClick={() => addFriend(id)}>Add</button>
       </div>
     </div>
   );

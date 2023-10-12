@@ -53,3 +53,12 @@ export const SIGNUP_USER = gql`
     }
   }
 `;
+
+export const ADD_FRIEND = gql`
+  mutation Mutation($userId: ID) {
+    addFriend(userId: $userId) {
+      _id
+      username
+    }
+  }
+`;

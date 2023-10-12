@@ -15,16 +15,20 @@ import UserIcon from "../components/UserIcon";
 import { useNavigate } from "react-router-dom";
 const Layout = () => {
   const [value, setValue] = useState(0);
+  const [users, setUsers] = useState([]);
 
   const location = useLocation();
 
+  const { data: ME_DATA, loading, refetch } = useQuery(QUERY_ME);
+  console.log(ME_DATA);
+  const navigate = useNavigate();
+
   useEffect(
     function () {
-      console.log(location);
       handlePageChange();
-      console.log(value);
+      setUsers(ME_DATA?.me?.friends);
     },
-    [location]
+    [location, users, loading]
   );
 
   const handlePageChange = () => {
@@ -44,9 +48,6 @@ const Layout = () => {
 
     setValue(-1);
   };
-  const { data: ME_DATA, loading } = useQuery(QUERY_ME);
-  const navigate = useNavigate();
-  const users = ME_DATA?.me?.friends;
 
   const handleClick = (loc) => {
     navigate(loc);

@@ -14,14 +14,12 @@ const resolvers = {
     users: async function (parent, { username }, context) {
       return User.find({
         username: { $regex: new RegExp("^" + username + "$", "i") },
-      });
+      }).populate("friends");
     },
     me: async function (parent, args, context) {
-      if (context.user) {
-        return User.findById(context.user._id).populate("friends");
-      }
+      if (!context.user) throw new AuthenticationError("You need to logged in");
 
-      throw new AuthenticationError("You need to logged in");
+      return User.findOne({ _id: context.user._id }).populate("friends");
     },
     findMessages: async function (parent, { userId }, context) {
       if (!context.user) return new AuthenticationError("Need to be logged in");
@@ -125,18 +123,24 @@ const resolvers = {
       });
       return fullMessage;
     },
-    addFriend: async function (parent, { id }, context) {
+    addFriend: async function (parent, { userId }, context) {
       if (!context.user)
         throw new AuthenticationError("Need to logged in to add a friend");
 
-      if (context.user._id === id)
+      if (context.user._id === userId)
         throw new AuthenticationError("Cannot add self");
       const user = await User.findOneAndUpdate(
         { _id: context.user._id },
-        { $addToSet: { friends: new ObjectId(id) } },
+        { $addToSet: { friends: userId } },
         { new: true }
       ).populate("friends");
 
+      const friend = await User.findOneAndUpdate(
+        { _id: userId },
+        {
+          $addToSet: { friends: context.user._id },
+        }
+      );
       return user;
     },
   },

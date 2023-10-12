@@ -1,16 +1,16 @@
 import { TextField, InputAdornment } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_USER } from "../utils/query";
+import { ADD_FRIEND } from "../utils/mutations";
 import Loading from "../components/Loading";
 import "../styles/Friends.css";
 import { useState } from "react";
-import { useResolvedPath } from "react-router-dom";
 import UserCard from "../components/UserCard";
 const Friends = () => {
   const [value, setValue] = useState();
   const { data, loading, refetch } = useQuery(QUERY_USER);
-
+  const [addFriendMut, { data: friendData }] = useMutation(ADD_FRIEND);
   if (loading) return <Loading />;
 
   const showResults = (e) => {
@@ -26,6 +26,12 @@ const Friends = () => {
     console.log(value);
   };
 
+  const addFriend = async (id) => {
+    await addFriendMut({ variables: { userId: id } });
+
+    window.location.reload();
+  };
+
   return (
     <>
       <TextField
@@ -39,6 +45,7 @@ const Friends = () => {
           color: "white",
           input: { color: "white" },
         }}
+        placeholder="Username"
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
@@ -58,8 +65,15 @@ const Friends = () => {
 
       <div className="friendList">
         {data.users.length > 0 &&
-          data.users.map(function (user) {
-            return <UserCard username={user.username} />;
+          data.users.map(function ({ _id, username }) {
+            return (
+              <UserCard
+                username={username}
+                addFriend={addFriend}
+                id={_id}
+                key={_id}
+              />
+            );
           })}
       </div>
     </>

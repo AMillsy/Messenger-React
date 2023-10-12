@@ -48,7 +48,7 @@ const typeDefs = gql`
     createMessageGroup(userId: ID): MessageGroup
     createMessage(message: String, groupId: ID): Message
     signupUser(username: String!, password: String!, email: String!): Auth
-    addFriend(id: ID): User
+    addFriend(userId: ID): User
   }
   type Subscription {
     recieveMessage(groupId: ID): Message
