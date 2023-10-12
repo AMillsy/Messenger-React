@@ -1,4 +1,4 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import { Avatar } from "@mui/material";
 import AService from "../utils/Avatar";
 import { useQuery } from "@apollo/client";
@@ -9,13 +9,36 @@ import { BottomNavigation, BottomNavigationAction, Box } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import PeopleIcon from "@mui/icons-material/People";
 import SearchIcon from "@mui/icons-material/Search";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import * as React from "react";
 import UserIcon from "../components/UserIcon";
 import { useNavigate } from "react-router-dom";
 const Layout = () => {
   const [value, setValue] = useState(0);
 
+  const location = useLocation();
+
+  useEffect(function () {
+    console.log(location);
+    handlePageChange();
+    console.log(value);
+  }, []);
+
+  const handlePageChange = () => {
+    switch (location.pathname) {
+      case "/friends":
+        console.log("friends");
+        setValue(1);
+        break;
+      case "/echo":
+        console.log("echo");
+        setValue(2);
+        break;
+      default:
+        setValue(0);
+        break;
+    }
+  };
   const { data: ME_DATA, loading } = useQuery(QUERY_ME);
   const navigate = useNavigate();
   const users = ME_DATA?.me?.friends;
@@ -108,9 +131,6 @@ const Layout = () => {
                 icon={<PeopleIcon />}
                 sx={{
                   color: "white",
-                  "& .Mui-selected, .Mui-selected svg": {
-                    color: "#007A78",
-                  },
                 }}
                 onClick={() => handleClick("friends")}
               />
