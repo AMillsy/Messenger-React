@@ -25,19 +25,18 @@ const Layout = () => {
   }, []);
 
   const handlePageChange = () => {
-    switch (location.pathname) {
-      case "/friends":
-        console.log("friends");
-        setValue(1);
-        break;
-      case "/echo":
-        console.log("echo");
-        setValue(2);
-        break;
-      default:
-        setValue(0);
-        break;
+    const friendRe = /^\/friends\/?[a-zA-Z0-9]*$/i;
+    const echoRe = /^\/echo\/?[A-Za-z0-9]*$/i;
+
+    if (friendRe.test(location.pathname)) {
+      setValue(1);
+      return;
+    } else if (echoRe.test(location.pathname)) {
+      setValue(2);
+      return;
     }
+
+    setValue(0);
   };
   const { data: ME_DATA, loading } = useQuery(QUERY_ME);
   const navigate = useNavigate();
