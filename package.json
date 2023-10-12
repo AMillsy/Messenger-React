@@ -10,7 +10,8 @@
     "install": "cd server && npm i && cd ../client && npm i",
     "start": "node server/server.js",
     "seed": "node server/seed/seed.js",
-    "second": "cd client && npm run start2"
+    "second": "cd client && npm run start2",
+    "build": "cd client && npm run build"
   },
   "repository": {
     "type": "git",
