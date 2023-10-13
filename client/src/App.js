@@ -20,9 +20,11 @@ import Signup from "./pages/Signup";
 import Friends from "./pages/Friends";
 import Echos from "./pages/Echos";
 
+const websocketUrl = process.env.REACT_APP_GRAPHQL_WEBSOCKET_URL
+
 const wsLink = new GraphQLWsLink(
   createClient({
-    url: "ws://localhost:3001/graphql",
+    url: websocketUrl,
   })
 );
 const httpLink = new HttpLink({ uri: "/graphql" });
