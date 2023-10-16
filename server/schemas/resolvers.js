@@ -155,22 +155,17 @@ const resolvers = {
       subscribe: withFilter(
         () => pubsub.asyncIterator(["MessageService"]),
         async (payload, { userId }) => {
-          //Find the group that the user is messaging to
-
+          //Get the users from the payload that are apart of the group
           const users = payload.recieveMessage.users;
-          console.log(users);
-          //If no group return false
 
           // If the user sending the message, then return false to stop the double messages appearing
           // Using the inbuilt equals on ObjectId
-          console.log("here");
           if (payload.recieveMessage.userId.equals(userId)) return false;
 
           //If the user is apart of the group then return true, else return false
 
           const objectIdUser = new ObjectId(userId);
 
-          console.log(users.includes(objectIdUser));
           return users.includes(objectIdUser);
 
           // return payload.recieveMessage.groupId == groupId;

@@ -21,16 +21,23 @@ const Chat = () => {
   const { loading, data, refetch } = useQuery(QUERY_MESSAGEGROUP, {
     variables: { userId },
   });
-  console.log(groupId);
-  console.log(ME_DATA.data._id);
+
   const { error } = useSubscription(SUBSCRIBE_MESSAGE, {
     variables: { userId: ME_DATA.data._id },
     shouldResubscribe: true,
     onData: function ({ data }) {
-      console.log("DATA");
       if (data?.data?.recieveMessage) {
         console.log(data.data);
         const newMessage = data?.data?.recieveMessage;
+
+        if (newMessage.user._id != userId) {
+          //Show notification that someone has messaged you
+          return;
+        }
+        if (!messages || messages?.length === 0) {
+          setMessages([{ message: newMessage.message, user: newMessage.user }]);
+          return;
+        }
         setMessages([
           { message: newMessage.message, user: newMessage.user },
           ...messages,
@@ -39,7 +46,6 @@ const Chat = () => {
     },
   });
 
-  console.log(error);
   const [createGroupMut] = useMutation(CREATE_MESSAGEGROUP);
   const [createMessageMut] = useMutation(CREATE_MESSAGE);
 
@@ -49,7 +55,6 @@ const Chat = () => {
       setGroupId(data?.findMessages?._id);
       setMessages(data?.findMessages?.messages);
       setUsers(data?.findMessages?.users);
-      console.log(messages);
     },
     [loading, userId]
   );
