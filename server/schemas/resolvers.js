@@ -118,11 +118,13 @@ const resolvers = {
       const pushMessage = await MessageGroups.findByIdAndUpdate(groupId, {
         $push: { messages: { $each: [addMessage], $position: 0 } },
       });
+      const users = pushMessage.users;
       pubsub.publish("MessageService", {
         recieveMessage: {
           ...fullMessage,
           groupId: groupId,
           userId: findUser._id,
+          users: users,
         },
       });
       return fullMessage;
@@ -154,21 +156,22 @@ const resolvers = {
         () => pubsub.asyncIterator(["MessageService"]),
         async (payload, { userId }) => {
           //Find the group that the user is messaging to
-          const findGroup = await MessageGroups.findById(
-            payload.recieveMessage.groupId
-          ).select("-messages");
 
+          const users = payload.recieveMessage.users;
+          console.log(users);
           //If no group return false
-          if (!findGroup) return false;
 
           // If the user sending the message, then return false to stop the double messages appearing
           // Using the inbuilt equals on ObjectId
+          console.log("here");
           if (payload.recieveMessage.userId.equals(userId)) return false;
 
           //If the user is apart of the group then return true, else return false
 
           const objectIdUser = new ObjectId(userId);
-          return findGroup.users.includes(objectIdUser);
+
+          console.log(users.includes(objectIdUser));
+          return users.includes(objectIdUser);
 
           // return payload.recieveMessage.groupId == groupId;
         }
