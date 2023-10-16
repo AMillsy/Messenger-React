@@ -51,7 +51,7 @@ const typeDefs = gql`
     addFriend(userId: ID): User
   }
   type Subscription {
-    recieveMessage(groupId: ID): Message
+    recieveMessage(userId: ID): Message
   }
 `;
 

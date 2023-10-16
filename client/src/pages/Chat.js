@@ -16,15 +16,20 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [users, setUsers] = useState([]);
   const { userId } = useParams();
+  const ME_DATA = Auth.getProfile();
   const { loading: userLoading, data: userData } = useQuery(QUERY_USER);
   const { loading, data, refetch } = useQuery(QUERY_MESSAGEGROUP, {
     variables: { userId },
   });
-  useSubscription(SUBSCRIBE_MESSAGE, {
-    variables: { groupId },
+  console.log(groupId);
+  console.log(ME_DATA.data._id);
+  const { error } = useSubscription(SUBSCRIBE_MESSAGE, {
+    variables: { userId: ME_DATA.data._id },
     shouldResubscribe: true,
     onData: function ({ data }) {
+      console.log("DATA");
       if (data?.data?.recieveMessage) {
+        console.log(data.data);
         const newMessage = data?.data?.recieveMessage;
         setMessages([
           { message: newMessage.message, user: newMessage.user },
@@ -33,6 +38,8 @@ const Chat = () => {
       }
     },
   });
+
+  console.log(error);
   const [createGroupMut] = useMutation(CREATE_MESSAGEGROUP);
   const [createMessageMut] = useMutation(CREATE_MESSAGE);
 
@@ -42,11 +49,10 @@ const Chat = () => {
       setGroupId(data?.findMessages?._id);
       setMessages(data?.findMessages?.messages);
       setUsers(data?.findMessages?.users);
+      console.log(messages);
     },
     [loading, userId]
   );
-
-  const ME_DATA = Auth.getProfile();
 
   if (loading)
     return (
@@ -62,6 +68,7 @@ const Chat = () => {
     if (user._id === ME_DATA.data._id) {
       return (
         <div
+          key={message?._id}
           className="message you"
           style={{ marginLeft: "auto", textAlign: "right", marginTop: "20px" }}
         >

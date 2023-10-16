@@ -19,8 +19,9 @@ import Chat from "./pages/Chat";
 import Signup from "./pages/Signup";
 import Friends from "./pages/Friends";
 import Echos from "./pages/Echos";
+console.log(process.env.REACT_APP_GRAPHQL_WEBSOCKET_URL);
 
-const websocketUrl = process.env.REACT_APP_GRAPHQL_WEBSOCKET_URL
+const websocketUrl = process.env.REACT_APP_GRAPHQL_WEBSOCKET_URL;
 
 const wsLink = new GraphQLWsLink(
   createClient({

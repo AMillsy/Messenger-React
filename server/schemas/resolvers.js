@@ -119,7 +119,11 @@ const resolvers = {
         $push: { messages: { $each: [addMessage], $position: 0 } },
       });
       pubsub.publish("MessageService", {
-        recieveMessage: { ...fullMessage, groupId: groupId },
+        recieveMessage: {
+          ...fullMessage,
+          groupId: groupId,
+          userId: findUser._id,
+        },
       });
       return fullMessage;
     },
@@ -148,8 +152,25 @@ const resolvers = {
     recieveMessage: {
       subscribe: withFilter(
         () => pubsub.asyncIterator(["MessageService"]),
-        (payload, { groupId }) => {
-          return payload.recieveMessage.groupId == groupId;
+        async (payload, { userId }) => {
+          //Find the group that the user is messaging to
+          const findGroup = await MessageGroups.findById(
+            payload.recieveMessage.groupId
+          ).select("-messages");
+
+          //If no group return false
+          if (!findGroup) return false;
+
+          // If the user sending the message, then return false to stop the double messages appearing
+          // Using the inbuilt equals on ObjectId
+          if (payload.recieveMessage.userId.equals(userId)) return false;
+
+          //If the user is apart of the group then return true, else return false
+
+          const objectIdUser = new ObjectId(userId);
+          return findGroup.users.includes(objectIdUser);
+
+          // return payload.recieveMessage.groupId == groupId;
         }
       ),
     },
