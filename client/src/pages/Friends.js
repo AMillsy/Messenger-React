@@ -68,7 +68,7 @@ const Friends = () => {
         onKeyDown={showResults}
       />
 
-      <h3 className="friendH3">Finds some people to add!</h3>
+      <h3 className="friendH3">Find some people to add!</h3>
 
       <div className="friendList">
         {data &&
