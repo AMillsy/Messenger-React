@@ -39,6 +39,7 @@ const typeDefs = gql`
   }
 
   type Query {
+    user(userId: ID): User
     users(username: String): [User]
     findMessages(userId: ID): MessageGroup
     me: User

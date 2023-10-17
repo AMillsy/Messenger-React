@@ -70,7 +70,7 @@ const Friends = () => {
 
       <h3 className="friendH3">Find some people to add!</h3>
 
-      <div className="friendList">
+      <div className="friendListTab">
         {data &&
           data.users.length > 0 &&
           data.users.map(function ({ _id, username }) {

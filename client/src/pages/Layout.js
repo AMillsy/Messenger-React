@@ -106,8 +106,15 @@ const Layout = () => {
     <>
       <article className="home-main">
         <aside className="user-section">
-          <div className="userIcon">{isLoggedIn()}</div>
+          {isLoggedIn()}
           <div className="friendList">
+            {users && users.length != 0 ? (
+              <h3>Friends</h3>
+            ) : Auth.loggedIn() ? (
+              <h3>Click the friends tab to add people</h3>
+            ) : (
+              <h3>Login to begin</h3>
+            )}
             <ul>{showUsers()}</ul>
           </div>
 

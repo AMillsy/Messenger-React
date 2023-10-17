@@ -1,12 +1,12 @@
 .userProfile {
   display: flex;
   align-items: center;
+  width: 100%;
+  overflow: hidden;
 }
 
 .meUsername {
   margin: 10px;
   font-size: 150%;
-}
-.userIcon {
-  position: relative;
+  text-overflow: clip;
 }

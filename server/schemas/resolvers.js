@@ -16,6 +16,9 @@ const resolvers = {
         username: { $regex: new RegExp("^" + username + "$", "i") },
       }).populate("friends");
     },
+    user: async function (parent, { userId }, context) {
+      return User.findById(userId).select("-password");
+    },
     me: async function (parent, args, context) {
       if (!context.user) throw new AuthenticationError("You need to logged in");
 
