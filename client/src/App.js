@@ -19,6 +19,7 @@ import Chat from "./pages/Chat";
 import Signup from "./pages/Signup";
 import Friends from "./pages/Friends";
 import Echos from "./pages/Echos";
+import Profile from "./pages/Profile";
 console.log(process.env.REACT_APP_GRAPHQL_WEBSOCKET_URL);
 
 const websocketUrl = process.env.REACT_APP_GRAPHQL_WEBSOCKET_URL;
@@ -69,6 +70,7 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/friends" element={<Friends />} />
             <Route path="/echo" element={<Echos />} />
+            <Route path="/profile/:id" element={<Profile />} />
           </Route>
         </Routes>
       </BrowserRouter>

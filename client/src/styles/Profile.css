@@ -1,0 +1,22 @@
+.profileIcon {
+  margin: 10px;
+}
+
+.logout {
+  padding: 10px;
+  margin: 10px;
+  color: black;
+  background-color: white;
+  font-weight: bolder;
+  right: 0;
+  font-size: 120%;
+  border-radius: 0.5rem;
+  position: absolute;
+  top: 0;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+.profileTitle {
+  font-size: 175%;
+  margin: 20px;
+}

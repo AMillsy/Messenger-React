@@ -54,18 +54,13 @@ const Layout = () => {
   const handleClick = (loc) => {
     navigate(loc);
   };
-  const logout = () => {
-    Auth.logout();
-  };
+
   const isLoggedIn = () => {
     const isLogged = Auth.loggedIn();
 
     if (isLogged && ME_DATA) {
       return (
         <>
-          <Link className="logout" onClick={logout}>
-            Logout
-          </Link>
           <UserIcon username={ME_DATA.me.username} id={ME_DATA.me._id} />
         </>
       );

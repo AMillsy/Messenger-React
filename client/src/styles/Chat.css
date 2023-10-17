@@ -57,6 +57,25 @@
   color: grey;
 }
 
+.messageStack::-webkit-scrollbar {
+  width: 10px;
+  height: 95%;
+}
+.messageStack::-webkit-scrollbar-track {
+  border-radius: 2rem;
+  background: #2222222f;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.messageStack::-webkit-scrollbar-thumb {
+  background: #0a0a0a;
+  width: 80%;
+  border-radius: 2rem;
+}
+
+.messageStack::-webkit-scrollbar-thumb:hover {
+  background: #000000;
+}
 .loading-area {
   display: flex;
   width: 100%;

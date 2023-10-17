@@ -76,13 +76,18 @@ const Chat = () => {
   //const messages = data?.findMessages?.messages;
   // const users = data?.findMessages?.users;
 
-  const formatMessage = (message, user) => {
+  const formatMessage = (message, user, key) => {
     if (user._id === ME_DATA.data._id) {
       return (
         <div
-          key={message?._id}
+          key={key}
           className="message you"
-          style={{ marginLeft: "auto", textAlign: "right", marginTop: "20px" }}
+          style={{
+            marginLeft: "auto",
+            textAlign: "right",
+            marginRight: "10px",
+            marginTop: "20px",
+          }}
         >
           <p>{message}</p>
           <p className="userMessage">{user.username}</p>
@@ -92,8 +97,14 @@ const Chat = () => {
 
     return (
       <div
+        key={key}
         className="message they"
-        style={{ marginRight: "auto", textAlign: "left", marginTop: "20px" }}
+        style={{
+          marginRight: "auto",
+          textAlign: "left",
+          marginTop: "20px",
+          marginLeft: "10px",
+        }}
       >
         <p>{message}</p>
         <p className="userMessage">{user.username}</p>
@@ -105,8 +116,8 @@ const Chat = () => {
     if (!messages) return;
     const messageRows = [];
 
-    for (const { message, user } of messages) {
-      const jsx = formatMessage(message, user);
+    for (const [i, { message, user }] of messages.entries()) {
+      const jsx = formatMessage(message, user, i);
       messageRows.push(jsx);
     }
 
@@ -184,8 +195,9 @@ const Chat = () => {
 
       <div className="messenger">
         <Stack
+          key={"messageStack"}
           sx={{
-            width: "95%",
+            width: "98%",
             alignSelf: "center",
             marginBottom: "10px",
             overflow: "auto",
@@ -200,6 +212,7 @@ const Chat = () => {
 
         <div className="textFieldCon">
           <TextField
+            key={"textArea"}
             id="filled-text"
             label="Messenge"
             variant="filled"
