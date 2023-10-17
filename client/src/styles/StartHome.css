@@ -1,8 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap");
+
 .startMain {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  z-index: -1;
 }
 
 .startMain h2 {
@@ -18,78 +21,74 @@
 }
 
 .startTop {
-  background-image: url("https://dailytrojan.com/wp-content/uploads/2021/09/dr-blingspice--scaled.jpg");
-  background-size: 120% 160%;
-  color: black;
-  width: 90%;
-  height: 300px;
-  border-radius: 0.5rem 0.5rem 2rem 2rem;
-  margin-top: 10px;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
-    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
-    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-}
-
-.signInSection {
-  display: flex;
-  justify-content: space-around;
-  width: 90%;
-  height: 200px;
-  align-items: center;
-  flex-direction: column;
-  background: rgb(0, 36, 1);
-  background: linear-gradient(
-    -45deg,
-    rgb(7, 7, 7) 0%,
-    rgb(24, 24, 24) 35%,
-    rgb(34, 34, 34) 100%
-  );
-  margin-top: 20px;
-  border-radius: 2rem;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
-    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
-    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-}
-
-.signInSection h3 {
-  font-size: 180%;
-  font-family: "Libre Baskerville", serif;
-}
-.startLinks {
-  display: flex;
+  color: rgb(13, 160, 197);
+  font-size: 250%;
+  margin: 10px;
+  text-decoration: none;
   width: 100%;
-  justify-content: center;
+  height: 300px;
 }
+.wave-con {
+  position: relative;
+  width: 100%;
+  z-index: -1;
+}
+.wave-con p {
+  margin: 10px;
+  font-size: 200%;
+  font-family: "Caveat", cursive;
+}
+.waveHomeImage {
+  position: absolute;
+  top: 0;
+  z-index: -10;
+  width: 100%;
+}
+.homeTitle {
+  font-size: 400%;
+  margin: 10px;
+  font-family: "Caveat", cursive;
+}
+
 .linkBtn {
   text-align: center;
   font-size: 130%;
-  color: white;
-  background-color: rgb(58, 1, 58);
+  color: black;
+  background-color: white;
   display: flex;
+  width: 50%;
   justify-content: center;
   align-items: center;
   padding: 15px;
   border-radius: 1.5rem;
   margin: 10px;
+  font-weight: bolder;
+  max-width: 300px;
+  z-index: 100;
+  transition: all 0.2s ease-in-out;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-.startLogin {
-  background-color: #eee;
-  color: black;
-}
-.startSignup {
-  background-color: #222;
+.signupBtn {
+  background-color: #121212;
+  color: white;
 }
 
 .linkBtn:hover {
-  background-color: rgb(92, 0, 92);
+  cursor: pointer;
+  transform: scale(1.05);
 }
-
 .startShowcase {
   width: 100%;
 }
 .svgIcon {
   transform: scale(10);
+}
+
+.homeLinks {
+  display: flex;
+  width: 100%;
+  justify-content: center;
 }
 
 @media only screen and (max-width: 1100px) {
