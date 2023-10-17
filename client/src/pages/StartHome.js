@@ -17,8 +17,12 @@ const StartHome = () => {
         <img src={wave} className="waveHomeImage"></img>
       </section>
       <div className="homeLinks">
-        <Link className="linkBtn">Login</Link>
-        <Link className="linkBtn signupBtn">Signup</Link>
+        <Link to="/login" className="linkBtn">
+          Login
+        </Link>
+        <Link to="/signup" className="linkBtn signupBtn">
+          Signup
+        </Link>
       </div>
     </div>
   );

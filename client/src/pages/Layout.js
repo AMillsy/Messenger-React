@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 const Layout = () => {
   const [value, setValue] = useState(0);
   const [users, setUsers] = useState([]);
-
+  const [loggedIn, setLoggedIn] = useState();
   const location = useLocation();
 
   const { data: ME_DATA, loading, refetch } = useQuery(QUERY_ME);
@@ -27,6 +27,8 @@ const Layout = () => {
     function () {
       handlePageChange();
       setUsers(ME_DATA?.me?.friends);
+      setLoggedIn(Auth.loggedIn());
+      console.log(loggedIn);
     },
     [location, users, loading]
   );
@@ -135,17 +137,19 @@ const Layout = () => {
                 label="Friends"
                 icon={<PeopleIcon />}
                 sx={{
-                  color: "white",
+                  color: loggedIn ? "white" : "grey",
                 }}
                 onClick={() => handleClick("friends")}
+                disabled={!loggedIn}
               />
               <BottomNavigationAction
                 label="Echos"
                 icon={<SearchIcon />}
-                sx={{ color: "white" }}
+                sx={{ color: loggedIn ? "white" : "grey" }}
                 onClick={() => {
                   handleClick("echo");
                 }}
+                disabled={!loggedIn}
               />
             </BottomNavigation>
           </Box>
