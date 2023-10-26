@@ -131,7 +131,7 @@ const Chat = () => {
         const { data } = await createGroupMut({
           variables: { userId },
         });
-
+        console.log(data);
         setUsers(data?.createMessageGroup?.users);
         setMessages(data?.createMessageGroup?.messages);
         setGroupId(data?.createMessageGroup?._id);

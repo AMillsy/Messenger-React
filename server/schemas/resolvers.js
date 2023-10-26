@@ -75,11 +75,12 @@ const resolvers = {
       if (!findUser) throw new AuthenticationError("Can't find user");
 
       const findGroup = await MessageGroups.findOne({
-        users: [userId, context.user._id],
+        users: { $all: [userId, context.user._id] },
       })
         .populate("users")
         .populate("messages.user");
 
+      console.log("Found a group", findGroup);
       if (findGroup) return findGroup;
 
       const newGroup = await MessageGroups.create({
@@ -89,7 +90,6 @@ const resolvers = {
       const newGroupFind = await MessageGroups.findById(newGroup._id).populate(
         "users"
       );
-      console.log(newGroupFind);
       return newGroupFind;
     },
     createMessage: async function (parent, { message, groupId }, context) {
